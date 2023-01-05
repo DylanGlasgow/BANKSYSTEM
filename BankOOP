@@ -1,0 +1,90 @@
+from random import randint
+
+
+class SavingsAccount:    
+    
+    def __init__(self):
+        self.savingsAccounts = {}
+        
+    def create_account(self, name, initialDeposit):
+        self.accountNumber = randint(10000, 99999)
+        self.savingsAccounts[self.accountNumber] = [name, initialDeposit]
+        print("Account creation successful. Your account number is: ", self.accountNumber)
+        
+    def authenticationMethod(self, name, accountNumber):
+        if accountNumber in self.savingsAccounts.keys():
+            if self.savingsAccounts[accountNumber][0] == name:
+                print("Authentication is Successful")
+                self.accountNumber = accountNumber
+                return True
+            else:
+                print("Authentication unsuccessful")
+                return False
+        else:
+            print("Authentication is unsuccessful")
+            return False
+        
+        
+    def withdraw(self, withdrawalAmount):
+        if withdrawalAmount > self.savingsAccounts[self.accountNumber][1]:
+            print("Insufficient balance")
+        else:
+            self.savingsAccounts[self.accountNumber][1] -= withdrawalAmount
+            print("Withdrawal Successful")
+            self.showAvailableBalance()
+               
+    def deposit(self, depositAmount):
+        self.savingsAccounts[self.accountNumber][1] += depositAmount
+        print("Deposit was Successful")
+        self.showAvailableBalance()
+    
+    def showAvailableBalance(self, showAvailableBalance):
+        print("Available balance: ", self.savingsAccounts[self.accountNumber][1])
+       
+    
+savingsAccount = SavingsAccount()
+ 
+while True:
+    
+    print("Would you like to create an account? Press 1")  
+    print("Would you like to access an existing account? Press 2")
+    print("Press 3 to exit")
+    
+    userChoice = int(input())
+    if userChoice == 1:
+        print("enter your name: ")
+        name = input()
+        print("enter initial deposit")
+        deposit = int(input())
+        savingsAccount.create_account(name, deposit)
+        
+    elif userChoice == 2:
+        print("enter your name: ")
+        name = input()
+        print("enter your account number: ")
+        accountNumber = int(input())
+        authenticationStatus = savingsAccount.authenticationMethod(name, accountNumber)
+        if authenticationStatus is True:
+            while True:
+                print("Enter 1 to withdraw")
+                print("Enter 2 to deposit")
+                print("Enter 3 to check available balance")
+                print("Enter to go back to previous menu")
+                userChoice = int(input())
+                if userChoice == 1:
+                    print("Enter withdrawal amount")
+                    withdrawalAmount = int(input())
+                    savingsAccount.withdraw(withdrawalAmount)
+                elif userChoice == 2:
+                    print("Enter amount to deposit")
+                    deposit == int(input())
+                    savingsAccount.deposit(deposit)
+                elif userChoice == 3:
+                    print("Available Balance")
+                    savingsAccount.showAvailableBalance()
+                elif userChoice == 4:
+                    break
+            if userChoice == 3:
+                quit 
+                    
+                    
